@@ -2,8 +2,28 @@ import axios from "axios";
 const API_KEY = "PuuHKel0RduuGBJYJERxtCJe3fEBPcbKypb_-oMyvGg";
 
 axios.defaults.baseURL = "https://api.unsplash.com/";
+interface Image {
+  id: string;
+  alt_description: string | null;
+  urls: {
+    regular: string;
+    small: string;
+    thumb: string;
+  };
+  user?: {
+    name: string;
+    portfolio_url: string | null;
+  };
+}
+interface FetchImagesResponse {
+  results: Image[];
+  total_pages: number;
+}
 
-export const fetchImages = async (query, page) => {
+export const fetchImages = async (
+  query: string,
+  page: number
+): Promise<FetchImagesResponse> => {
   const options = {
     params: {
       query: query,
@@ -16,7 +36,10 @@ export const fetchImages = async (query, page) => {
     },
   };
 
-  const response = await axios.get(`/search/photos`, options);
+  const response = await axios.get<{
+    results: Image[];
+    total_pages: number;
+  }>(`/search/photos`, options);
 
   // Возвращаем результаты и total_pages
   return {
