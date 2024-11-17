@@ -12,10 +12,11 @@ import {
   ErrorMessage,
 } from "./components";
 import { fetchImages } from "./services/unsplash-api";
+import { Image } from "./services/unsplash-api.types";
 
 const App = () => {
-  const [images, setImages] = useState([]);
-  const [loader, setLoader] = useState(false);
+  const [images, setImages] = useState<Image[]>([]);
+  const [loader, setLoader] = useState<boolean>(false);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState(null);
   const [page, setPage] = useState(1);
