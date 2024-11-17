@@ -1,5 +1,4 @@
-// ImageModal.jsx
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import Modal from "react-modal";
 import css from "./ImageModal.module.css";
 
@@ -20,16 +19,33 @@ const customStyles = {
   },
 };
 
-const ImageModal = ({ isOpen, onClose, imageUrl, altText, description }) => {
+// Типизация пропсов
+interface ImageModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  imageUrl: string;
+  altText: string;
+  description: string; // строка для описания изображения
+}
+
+const ImageModal: FC<ImageModalProps> = ({
+  isOpen,
+  onClose,
+  imageUrl,
+  altText,
+  description,
+}) => {
   // Закрытие модального окна при нажатии клавиши ESC
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         onClose();
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
+
+    // Очищаем обработчик события при закрытии окна
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };

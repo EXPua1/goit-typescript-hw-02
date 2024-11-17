@@ -1,7 +1,9 @@
 export interface Image {
   id: string;
   alt_description: string | null;
-  urls: {
+  description?: string | null;
+  likes: number;
+  urls?: {
     regular: string;
     small: string;
     thumb: string;
@@ -11,7 +13,8 @@ export interface Image {
     portfolio_url: string | null;
   };
 }
+
 export interface FetchImagesResponse {
-  results: Image[];
-  total_pages: number;
+  results: Image[]; // Массив изображений
+  total_pages: number; // Количество страниц
 }

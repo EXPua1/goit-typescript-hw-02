@@ -1,7 +1,16 @@
+import { FC } from "react";
+import { Image } from "../../services/unsplash-api.types";
 import ImageCard from "../ImageCard/ImageCard";
 import css from "./ImageGallery.module.css";
+import { SelectedImage } from "../../App";
 
-const GalleryList = ({ data, onImageClick }) => {
+// В компоненте ImageGallery (GalleryList)
+interface GalleryListProps {
+  data: Image[];
+  onImageClick: (selectedImage: SelectedImage) => void; // Принимает объект SelectedImage
+}
+
+const GalleryList: FC<GalleryListProps> = ({ data, onImageClick }) => {
   return (
     <ul className={css.gallery}>
       {data.map((item) => (
@@ -9,7 +18,11 @@ const GalleryList = ({ data, onImageClick }) => {
           <ImageCard
             data={item}
             onClick={() =>
-              onImageClick(item.urls.regular, item.alt_description, item.likes)
+              onImageClick({
+                imageUrl: item.urls?.regular || "",
+                altText: item.alt_description || "",
+                description: item.likes.toString(),
+              })
             }
           />
         </li>

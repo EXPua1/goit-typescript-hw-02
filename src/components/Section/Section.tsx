@@ -1,5 +1,6 @@
+import { FC } from "react";
 import style from "./Section.module.css";
-const Section = ({ children }) => {
+const Section: FC<{ children: React.ReactNode }> = ({ children }) => {
   return <section className={style.section}>{children}</section>;
 };
 
